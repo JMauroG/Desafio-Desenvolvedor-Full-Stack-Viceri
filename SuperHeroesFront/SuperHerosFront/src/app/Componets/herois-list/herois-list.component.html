@@ -1,0 +1,50 @@
+<div [hidden]="error">
+    <div *ngIf="loading">
+        <div class="loader"></div>
+    </div>
+    <div [hidden]="loading" class="table-area">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.nome}} </td>
+            </ng-container>
+            <ng-container matColumnDef="NomeHeroi">
+                <th mat-header-cell *matHeaderCellDef> Nome Heroi </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.nomeHeroi}} </td>
+            </ng-container>
+            <ng-container matColumnDef="DataDeNascimento">
+                <th mat-header-cell *matHeaderCellDef> DataDeNascimento </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.dataNascimento}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Altura">
+                <th mat-header-cell *matHeaderCellDef> Altura </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.altura}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Peso">
+                <th mat-header-cell *matHeaderCellDef> Peso </th>
+                <td mat-cell *matCellDef="let heroi"> {{heroi.peso}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Poderes">
+                <th mat-header-cell *matHeaderCellDef> Poderes </th>
+                <td mat-cell *matCellDef="let heroi">  <p *ngFor="let poder of heroi.superpoderes">{{poder.poder}}</p> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acao">
+                <th mat-header-cell *matHeaderCellDef> Atualizar </th>
+                <td mat-cell *matCellDef="let heroi">  <p (click)="openUpdate(heroi)">U</p> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>
+        </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[15, 20, 30]" showFirstLastButtons></mat-paginator>
+</div>
+
+<div *ngIf="error">
+    {{errorMessage}}
+</div>

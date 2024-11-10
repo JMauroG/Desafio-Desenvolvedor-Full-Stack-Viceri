@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Novo Herói</h2>
+<mat-dialog-content >
+    <form [formGroup]="createHeroForm" class="form-area">
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Nome Herói</mat-label>
+            <input matInput formControlName="nomeHeroi">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Altura</mat-label>
+            <input matInput type="number" formControlName="altura">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Peso</mat-label>
+            <input matInput type="number" formControlName="peso">
+        </mat-form-field>
+        <div>
+            <p>Superpoderes</p>
+            <div formArrayName="superpoderes">
+                <div *ngFor="let control of formArray.controls; let i = index">
+                    <mat-checkbox [formControlName]="i">
+                        {{ superpoderes[i]!.poder }}
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="Close()">Cancelar</button>
+    <button (click)="Save()">Salvar</button>
+</mat-dialog-actions>

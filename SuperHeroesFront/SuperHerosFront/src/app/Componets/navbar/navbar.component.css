@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    gap: 3%;
+    margin-top: 5px;
+}
+
+.base-button{
+    border: none;
+    background-color: darkgrey;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 200;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.base-button:hover{
+    color: white;
+}
