@@ -18,6 +18,8 @@ export class ResearchHeroiComponent {
 
   tableColumns: string[] = ["Poder", "Descricao"]
   dataSource: MatTableDataSource<Superpoder> = new MatTableDataSource();
+  
+  errorMessages: any[]= [];
 
   constructor(
     public dialogRef: MatDialogRef<ResearchHeroiComponent>,
@@ -39,10 +41,12 @@ export class ResearchHeroiComponent {
           this.success = true;
           this.heroiResearch = true;
         }, error => {
+          debugger
           this.success = false;
           this.heroiResearch = false;
           this.heroi = <Heroi>{};
           this.dataSource.data = [];
+          this.errorMessages = Array.isArray(error.error) ? error.error : [error.error];
         }
       )
   }

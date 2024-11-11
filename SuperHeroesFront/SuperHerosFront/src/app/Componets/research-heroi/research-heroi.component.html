@@ -3,9 +3,11 @@
     <div *ngIf="!heroiResearch" class="corpo">
         <mat-form-field class="field">
             <mat-label>Id do heroi que deseja encontrar</mat-label>
-            <input matInput type="number" [(ngModel)]="heroiId">
+            <input matInput type="number" [(ngModel)]="heroiId" step="1">
         </mat-form-field>
-        <p *ngIf="!success">Herói não encontrado</p>
+        <div *ngIf="!success">
+            <p *ngFor="let error of errorMessages" class="error-message">{{error.description}}</p>
+        </div>
     </div>
 
     <div *ngIf="heroiResearch" class="corpo">

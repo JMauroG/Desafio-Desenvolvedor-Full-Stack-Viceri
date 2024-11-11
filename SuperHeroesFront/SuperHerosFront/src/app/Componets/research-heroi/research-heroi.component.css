@@ -16,3 +16,9 @@
     align-items: center;
     justify-content: space-evenly;
 }
+
+.error-message{
+    color: red;
+    margin-bottom: 2px;
+    font-size: 13px;
+}

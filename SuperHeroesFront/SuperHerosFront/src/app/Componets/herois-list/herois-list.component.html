@@ -1,8 +1,5 @@
-<div [hidden]="error">
-    <div *ngIf="loading">
-        <div class="loader"></div>
-    </div>
-    <div [hidden]="loading" class="table-area">
+<div [hidden]="herois.length < 1">
+    <div class="table-area">
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="Id">
                 <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -55,6 +52,6 @@
     <mat-paginator [pageSizeOptions]="[15, 20, 30]" showFirstLastButtons class="paginator"></mat-paginator>
 </div>
 
-<div *ngIf="error">
-    {{errorMessage}}
+<div [hidden]="herois.length > 1" style="color: red; text-align: center;">
+    <h3>Error ao Carregar os Heróis.</h3>
 </div>

@@ -14,6 +14,8 @@ import { UpdateHero } from '../../Interfaces/updateHeroi';
 })
 export class UptadeHeroiComponent {
   updateHeroiForm: FormGroup;
+  error: boolean = false;
+  errorMessages: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<UptadeHeroiComponent>,
@@ -69,11 +71,14 @@ export class UptadeHeroiComponent {
         }
 
         this.heroisService.UpdateHeroi(heroi)
-        .subscribe(
-          data => {
-            this.close();
-          }
-        )
+          .subscribe(
+            data => {
+              this.close();
+            }, error => {
+              this.error = true;
+              this.errorMessages = Array.isArray(error.error) ? error.error : [error.error];
+            }
+          )
       }
     }
   }

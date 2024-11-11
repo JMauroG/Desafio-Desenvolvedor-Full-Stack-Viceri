@@ -11,30 +11,36 @@ import { Heroi } from '../../Interfaces/heroi';
 export class DeleteHeroiComponent {
   herois: Heroi[] = [];
   selectHeroiId: number = 0;
+  error: boolean = false;
+  errorMessages: any[]= [];
 
   constructor(
     public dialogRef: MatDialogRef<DeleteHeroiComponent>,
     private heroiService: HeroisService
-  ){
+  ) {
     this.heroiService.herois
-    .subscribe(
-      herois =>{
-        this.herois = herois;
-      }
-    )
+      .subscribe(
+        herois => {
+          this.herois = herois;
+        }
+      )
   }
 
   Close(): void {
     this.dialogRef.close();
   }
 
-  Delete(){
+  Delete() {
     this.heroiService.DeleteHeroi(this.selectHeroiId)
-    .subscribe(
-      resp =>{
-        this.Close();
-      }
-    )
+      .subscribe(
+        resp => {
+          this.Close();
+        },
+        error =>{
+          this.error = true;
+          this.errorMessages = Array.isArray(error.error) ? error.error : [error.error];
+        }
+      )
   }
 
 }

@@ -16,6 +16,8 @@ export class RegisterHeroiComponent {
 
   createHeroForm: FormGroup;
   superpoderes: Superpoder[] = [];
+  error: boolean = false;
+  errorMessages: any[] = [];
 
 
   constructor(
@@ -65,7 +67,7 @@ export class RegisterHeroiComponent {
       const superpoderSelected = this.createHeroForm.value
         .superpoderes.map((selected: boolean, index: number) => selected ? this.superpoderes[index] : null)
         .filter((s: any) => s !== null);
-        
+
       const date = new Date(this.createHeroForm.controls['dataNascimento'].value);
 
       const heroi: RegisterHero = {
@@ -82,6 +84,10 @@ export class RegisterHeroiComponent {
           data => {
             console.log(data);
             this.dialogRef.close();
+          },
+          error => {
+            this.error = true;
+            this.errorMessages = Array.isArray(error.error) ? error.error : [error.error];
           }
         )
     }
