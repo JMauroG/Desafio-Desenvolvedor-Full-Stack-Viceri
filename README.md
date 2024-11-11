@@ -12,13 +12,13 @@
 ## Como usar
 
 ### BACKEND
-- Primeiro, temos que rodar o docker-compose.yml na raiz do projeto com o ```comando docker-compose up```
+- Primeiro, devemos rodar o docker-compose.yml na raiz do projeto com o comando ```docker-compose up```
 - Em seguida executar a migration para montar as tabelas
 - Agora podemos rodar o projeto
   - Obs.: o Swagger ficará exposto na seguinte url -> https://localhost:5001/swagger/index.html
 
 ### FRONTEND
 - Abra a pasta do projeto no powershell ou cmd
-- Em seguida devemos utilizar o comando  ```npm i```
+- Em seguida, deve-se utilizar o comando  ```npm i```
   - Caso não possua CLI do Angular, é necessário executar o comando ```npm i @angular/cli```
 - Ao final, é só executar o comando ```ng s``` e a aplicação ficará disponível na url http://localhost:4200
