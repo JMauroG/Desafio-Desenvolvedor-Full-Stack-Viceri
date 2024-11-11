@@ -33,14 +33,8 @@ public class UpdateHeroiCommandHandler(
         heroisRepository.Update(heroi);
         await heroisRepository.SaveChangesAsync(cancellationToken);
 
-        UpdateHeroiDto response = BuildResponse(heroi, heroiSuperpoderes);
+        UpdateHeroiDto response = new (heroi);
 
         return response;
-    }
-
-    private UpdateHeroiDto BuildResponse(Heroi heroi, List<Superpoder> superpoderes)
-    {
-        return new UpdateHeroiDto(heroi.Id, heroi.Nome, heroi.NomeHeroi, heroi.DataNascimento!.Value, heroi.Altura,
-            heroi.Peso, superpoderes);
     }
 }
