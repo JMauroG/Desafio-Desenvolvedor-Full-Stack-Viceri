@@ -3,5 +3,5 @@ using Application.Abstractions.Messaging;
 namespace Application.Herois.Queries.GetById;
 
 public record GetHeroiByIdQuery(
-    int Id
+    int? Id
     ): IQuery<GetHeroiByIdDto>;

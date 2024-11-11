@@ -47,7 +47,7 @@ public class CreateHeroiCommandHandlerTests
         //Assert
         result.Should().NotBeNull();
         result.Error.Should().NotBeNull();
-        result.Error.Should().Be(HeroiErrors.NomeHeroiAlreadyExists);
+        result.Error.Should().Be(HeroiErrors.AlreadyExists("NomeHeroi"));
     }
 
     [Fact]

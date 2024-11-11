@@ -15,7 +15,7 @@ public sealed class CreateHeroiCommandHandler(
     {
         if (await heroisRepository.CheckIfHeroiNomeExistsAsync(command.NomeHeroi,cancellationToken))
         {
-            return Result.Failure<CreateHeroiDto>(HeroiErrors.NomeHeroiAlreadyExists);
+            return Result.Failure<CreateHeroiDto>(HeroiErrors.AlreadyExists("NomeHeroi"));
         }
 
         List<Superpoder> superpoderes = await superpoderRepository.GetSuperpoderesListFromIdListAsync(command.SuperpoderesIds,cancellationToken);

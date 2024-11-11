@@ -56,7 +56,7 @@ public class UpdateHeroiCommandHandlerTests
         Result<UpdateHeroiDto> result = await _handler.Handle(command, CancellationToken);
 
         //Assert
-        result.Error.Should().Be(HeroiErrors.NomeHeroiAlreadyExists);
+        result.Error.Should().Be(HeroiErrors.AlreadyExists("NomeHeroi"));
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class UpdateHeroiCommandHandlerTests
                 rep.CheckIfHeroiNomeExistsWithIdAsync(command.NomeHeroi!, command.Id!.Value, CancellationToken))
             .ReturnsAsync(false);
         _mockSuperpoderRepository
-            .Setup(rep => rep.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds, CancellationToken))
+            .Setup(rep => rep.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds!, CancellationToken))
             .ReturnsAsync(superpoders);
         _mockHeroiRepository.Setup(rep => rep.SaveChangesAsync(CancellationToken)).ReturnsAsync(1);
 

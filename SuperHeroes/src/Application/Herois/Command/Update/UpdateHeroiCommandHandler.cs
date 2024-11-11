@@ -23,11 +23,11 @@ public class UpdateHeroiCommandHandler(
                 cancellationToken);
 
         if (success)
-            return Result.Failure<UpdateHeroiDto>(HeroiErrors.NomeHeroiAlreadyExists);
+            return Result.Failure<UpdateHeroiDto>(HeroiErrors.AlreadyExists("NomeHeroi"));
 
-        List<Superpoder> heroiSuperpoderes = await superpoderRepository.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds, cancellationToken);
+        List<Superpoder> heroiSuperpoderes = await superpoderRepository.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds!, cancellationToken);
 
-        heroi.Update(command.Nome, command.NomeHeroi!, command.Altura, command.Peso, command.DataNascimento);
+        heroi.Update(command.Nome!, command.NomeHeroi!, command.Altura!.Value, command.Peso!.Value, command.DataNascimento!.Value);
         heroi.UpdateSuperpoderes(heroiSuperpoderes);
 
         heroisRepository.Update(heroi);

@@ -8,9 +8,13 @@ public class DeleteHeroiCommandValidator : AbstractValidator<DeleteHeroiCommand>
     public DeleteHeroiCommandValidator()
     {
         RuleFor(h => h.heroidId)
-            .NotNull()
             .NotEmpty()
-            .WithMessage(HeroiErrors.HeroiIdRequired.Description)
-            .WithErrorCode(HeroiErrors.NomeRequiredCode);
+            .WithMessage(HeroiErrors.RequiredProperty("heroidId").Description)
+            .WithErrorCode(HeroiErrors.RequiredPropertyCode);
+        
+        RuleFor(h => h.heroidId)
+            .GreaterThan(0)
+            .WithMessage(HeroiErrors.GreaterThan("heroidId", 0).Description)
+            .WithErrorCode(HeroiErrors.GreaterThanCode);
     }
 }

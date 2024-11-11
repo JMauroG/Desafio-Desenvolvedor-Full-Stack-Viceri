@@ -12,7 +12,7 @@ public class GetHeroiByIdQueryHandler(IHeroisRepository heroisRepository)
 {
     public async Task<Result<GetHeroiByIdDto>> Handle(GetHeroiByIdQuery query, CancellationToken cancellationToken)
     {
-        Heroi heroi = await heroisRepository.GetHeroiByIdReadOnlyAsync(query.Id, cancellationToken);
+        Heroi heroi = await heroisRepository.GetHeroiByIdReadOnlyAsync(query.Id!.Value, cancellationToken);
 
         if (heroi == null)
         {
