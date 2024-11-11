@@ -79,7 +79,9 @@ public class UpdateHeroiCommandHandlerTests
             .Setup(rep =>
                 rep.CheckIfHeroiNomeExistsWithIdAsync(command.NomeHeroi!, command.Id!.Value, CancellationToken))
             .ReturnsAsync(false);
-        _mockSuperpoderRepository.Setup(rep => rep.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds, CancellationToken)).ReturnsAsync(superpoders);
+        _mockSuperpoderRepository
+            .Setup(rep => rep.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds, CancellationToken))
+            .ReturnsAsync(superpoders);
         _mockHeroiRepository.Setup(rep => rep.SaveChangesAsync(CancellationToken)).ReturnsAsync(1);
 
         //Act
@@ -88,7 +90,7 @@ public class UpdateHeroiCommandHandlerTests
         //Assert
         result.Value.NomeHeroi.Should().Be(command.NomeHeroi);
         result.Value.Nome.Should().Be(command.Nome);
-        result.Value.DataNascimento.Date.Should().Be(command.DataNascimento.Date);
+        result.Value.DataNascimento.Should().Be(command.DataNascimento);
         result.Value.Altura.Should().Be(command.Altura);
         result.Value.Peso.Should().Be(command.Peso);
         result.Value.Id.Should().Be(command.Id);
