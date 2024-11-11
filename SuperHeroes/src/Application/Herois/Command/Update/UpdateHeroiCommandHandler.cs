@@ -13,40 +13,34 @@ public class UpdateHeroiCommandHandler(
 {
     public async Task<Result<UpdateHeroiDto>> Handle(UpdateHeroiCommand command, CancellationToken cancellationToken)
     {
-        Heroi heroiToUpdate = await heroisRepository.GetHeroiByIdAsync(command.Id, cancellationToken);
+        Heroi heroi = await heroisRepository.GetHeroiByIdAsync(command.Id!.Value, cancellationToken);
 
-        if (heroiToUpdate == null)
-        {
+        if (heroi == null)
             return Result.Failure<UpdateHeroiDto>(HeroiErrors.NotFound);
-        }
 
-        bool success = await heroisRepository.CheckIfHeroiNomeExistsWithIdAsync(command.NomeHeroi, command.Id ,cancellationToken);
+        bool success =
+            await heroisRepository.CheckIfHeroiNomeExistsWithIdAsync(command.NomeHeroi!, command.Id!.Value,
+                cancellationToken);
 
         if (success)
-        {
             return Result.Failure<UpdateHeroiDto>(HeroiErrors.NomeHeroiAlreadyExists);
-        }
 
-        List<Superpoder> superpoderes = await superpoderRepository.GetAllSuperpoderes();
+        List<Superpoder> heroiSuperpoderes = await superpoderRepository.GetSuperpoderesListFromIdListAsync(command.SuperPoderesIds, cancellationToken);
 
-        List<Superpoder> heroiSuperpoderes = superpoderes.Where(s => command.SuperPoderesIds.Contains(s.Id)).ToList();
+        heroi.Update(command.Nome, command.NomeHeroi!, command.Altura, command.Peso, command.DataNascimento);
+        heroi.UpdateSuperpoderes(heroiSuperpoderes);
 
-        heroiToUpdate.Update(command.Nome, command.NomeHeroi, command.Altura, command.Peso, command.DataNascimento);
-            
-        heroiToUpdate.UpdateSuperpoderes(heroiSuperpoderes);
-        
-        heroisRepository.Update(heroiToUpdate);
-        
+        heroisRepository.Update(heroi);
         await heroisRepository.SaveChangesAsync(cancellationToken);
 
-        UpdateHeroiDto response = BuildResponse(heroiToUpdate);
+        UpdateHeroiDto response = BuildResponse(heroi, heroiSuperpoderes);
 
         return response;
     }
 
-    private UpdateHeroiDto BuildResponse(Heroi heroi)
+    private UpdateHeroiDto BuildResponse(Heroi heroi, List<Superpoder> superpoderes)
     {
         return new UpdateHeroiDto(heroi.Id, heroi.Nome, heroi.NomeHeroi, heroi.DataNascimento!.Value, heroi.Altura,
-            heroi.Peso, heroi.Superpoderes);
+            heroi.Peso, superpoderes);
     }
 }

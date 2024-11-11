@@ -42,26 +42,33 @@ export class HeroisListComponent {
           this.herois = heroisResponse;
         }
       );
-      
+
     this.loadSuperPoderes();
   }
 
-  loadSuperPoderes(){
+  loadSuperPoderes() {
     this.superPoderService.GetAllSuperpoderes()
-    .subscribe(
-      resp =>{
-        this.superpoderes = resp;
-      }
-    )
+      .subscribe(
+        resp => {
+          this.superpoderes = resp;
+        }
+      )
   }
 
-  openUpdate(heroi: Heroi){
-    const dialogRef = this.matDialog.open(UptadeHeroiComponent,{
+  openUpdate(heroi: Heroi) {
+    const dialogRef = this.matDialog.open(UptadeHeroiComponent, {
       width: '500px',
-      data:{
+      data: {
         heroi: heroi,
         superpoderes: this.superpoderes
       }
-    })
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(
+        c => {
+          this.heroisService.populateHerois();
+        }
+      )
   }
 }

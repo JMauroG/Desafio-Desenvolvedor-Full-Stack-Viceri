@@ -41,6 +41,8 @@ public class Heroi
 
     public void UpdateSuperpoderes(List<Superpoder> superpoderes)
     {
+        Superpoderes = new List<Superpoder>();
+
         Superpoderes = superpoderes;
     }
 }

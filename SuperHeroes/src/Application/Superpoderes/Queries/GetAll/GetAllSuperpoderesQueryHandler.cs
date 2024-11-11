@@ -12,7 +12,7 @@ public class GetAllSuperpoderesQueryHandler(ISuperpoderRepository superpoderRepo
     public async Task<Result<List<GetAllSuperpoderesDto>>> Handle(GetAllSuperpoderesQuery request,
         CancellationToken cancellationToken)
     {
-        List<Superpoder> superpoders = await superpoderRepository.GetAllSuperpoderes();
+        List<Superpoder> superpoders = await superpoderRepository.GetAllSuperpoderesAsync(cancellationToken);
 
         if (superpoders.Count == 0)
         {

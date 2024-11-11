@@ -21,7 +21,8 @@ public class HeroisRepository(ApplicationDbContext context) : IHeroisRepository
 
     public async Task<Heroi> GetHeroiByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await context.Herois.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await context.Herois.Include(h => h.Superpoderes)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<Heroi> GetHeroiByIdReadOnlyAsync(int id, CancellationToken cancellationToken)
@@ -37,7 +38,8 @@ public class HeroisRepository(ApplicationDbContext context) : IHeroisRepository
             .AnyAsync(h => h.NomeHeroi.ToUpper() == name.ToUpper(), cancellationToken);
     }
 
-    public async Task<Boolean> CheckIfHeroiNomeExistsWithIdAsync(string name, int id, CancellationToken cancellationToken)
+    public async Task<Boolean> CheckIfHeroiNomeExistsWithIdAsync(string name, int id,
+        CancellationToken cancellationToken)
     {
         return await context.Herois.AsNoTrackingWithIdentityResolution()
             .AnyAsync(h => h.NomeHeroi.ToUpper() == name.ToUpper() && h.Id != id, cancellationToken);

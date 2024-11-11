@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Application.Herois.Command.Create;
 using Domain.HeroisAggregated;
 using Domain.HeroisAggregated.Errors;
@@ -28,7 +29,8 @@ public class CreateHeroiCommandHandlerTests
     public async Task Handle_NomeHeroiAlreadyExists()
     {
         //Arrange
-        _mockHeroiRepository.Setup(rep => rep.CheckIfHeroiNomeExists("Exist")).ReturnsAsync(true);
+        _mockHeroiRepository.Setup(rep => rep.CheckIfHeroiNomeExistsAsync("Exist", CancellationToken))
+            .ReturnsAsync(true);
 
         CreateHeroiCommand command = new CreateHeroiCommand(
             "Exist",
@@ -51,16 +53,17 @@ public class CreateHeroiCommandHandlerTests
     [Fact]
     public async Task Handle_Sucess()
     {
+        DateTime date = DateTime.Now;
         //Arrange
         CreateHeroiCommand command = new CreateHeroiCommand(
             "Exist",
             "Exist",
-            DateTime.Now,
+            date,
             1,
             40,
             [1]
         );
-        
+
         List<Superpoder> superpoderes = new List<Superpoder>(
             [
                 new Superpoder(1, "", "Forte")
@@ -70,23 +73,25 @@ public class CreateHeroiCommandHandlerTests
         Heroi heroi = new Heroi(
             "Exist",
             "Exist",
-            DateTime.Now,
+            date,
             1,
             40,
             superpoderes
         );
 
-        
 
-        _mockHeroiRepository.Setup(rep => rep.GetHeroiByHeroiNomeReadOnlyAsync("Exist")).ReturnsAsync(heroi);
-        _mockSuperpoderRepository.Setup(rep => rep.GetAllSuperpoderes()).ReturnsAsync(superpoderes);
+        _mockHeroiRepository.Setup(rep => rep.CheckIfHeroiNomeExistsAsync("Exist", CancellationToken))
+            .ReturnsAsync(false);
+        _mockSuperpoderRepository
+            .Setup(rep => rep.GetSuperpoderesListFromIdListAsync(command.SuperpoderesIds, CancellationToken))
+            .ReturnsAsync(superpoderes);
 
         //Act
         Result<CreateHeroiDto> result = await _handler.Handle(command, CancellationToken);
 
         //Assert
         result.Should().NotBeNull();
-        CreateHeroiDto heroiDto =result.Value;
+        CreateHeroiDto heroiDto = result.Value;
         heroiDto.Nome.Should().Be(heroi.Nome);
         heroiDto.NomeHeroi.Should().Be(heroi.NomeHeroi);
         heroiDto.Altura.Should().Be(heroi.Altura);

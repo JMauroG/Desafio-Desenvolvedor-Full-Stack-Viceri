@@ -18,7 +18,7 @@ public sealed class CreateHeroiCommandHandler(
             return Result.Failure<CreateHeroiDto>(HeroiErrors.NomeHeroiAlreadyExists);
         }
 
-        List<Superpoder> superpoderes = await superpoderRepository.GetAllSuperpoderes();
+        List<Superpoder> superpoderes = await superpoderRepository.GetSuperpoderesListFromIdListAsync(command.SuperpoderesIds,cancellationToken);
 
         Heroi heroi = new Heroi(nome: command.Nome, nomeHeroi: command.NomeHeroi,
             dataNascimento: command.DataNascimento!.Value, altura: command.Altura!.Value, peso: command.Peso!.Value,

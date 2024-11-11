@@ -25,7 +25,7 @@ public class GetAllHeroisQueryHandlerTest
     public async Task Handle_TableEmpty()
     {
         //Arrange
-        _mockHeroisRepository.Setup(rep => rep.GetAllHeroisReadOnlyAsync()).ReturnsAsync([]);
+        _mockHeroisRepository.Setup(rep => rep.GetAllHeroisReadOnlyAsync(CancellationToken)).ReturnsAsync([]);
         GetAllHeroisQuery query = new GetAllHeroisQuery();
 
         //Act
@@ -50,7 +50,7 @@ public class GetAllHeroisQueryHandlerTest
             new("test2", "test2", DateTime.Now, 1.32f, 33, superpoderes, 3),
         ]);
         
-        _mockHeroisRepository.Setup(rep => rep.GetAllHeroisReadOnlyAsync()).ReturnsAsync(herois);
+        _mockHeroisRepository.Setup(rep => rep.GetAllHeroisReadOnlyAsync(CancellationToken)).ReturnsAsync(herois);
         GetAllHeroisQuery query = new GetAllHeroisQuery();
         
         //Act

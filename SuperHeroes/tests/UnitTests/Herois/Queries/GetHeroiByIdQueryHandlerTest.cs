@@ -25,7 +25,7 @@ public class GetHeroiByIdQueryHandlerTest
     {
         //Arrange
         int heroiId = 1;
-        _mockHeroisRepository.Setup(rep => rep.GetHeroiByIdReadOnlyAsync(heroiId))!.ReturnsAsync((Heroi)null);
+        _mockHeroisRepository.Setup(rep => rep.GetHeroiByIdReadOnlyAsync(heroiId, CancellationToken))!.ReturnsAsync((Heroi)null);
         GetHeroiByIdQuery query = new(heroiId);
 
         //Act
@@ -46,7 +46,7 @@ public class GetHeroiByIdQueryHandlerTest
             ]
         );
         Heroi heroi = new("test", "test", DateTime.Now, 2, 40, superpoderes, heroiId);
-        _mockHeroisRepository.Setup(rep => rep.GetHeroiByIdReadOnlyAsync(heroiId)).ReturnsAsync(heroi);
+        _mockHeroisRepository.Setup(rep => rep.GetHeroiByIdReadOnlyAsync(heroiId, CancellationToken)).ReturnsAsync(heroi);
         GetHeroiByIdQuery query = new(heroiId);
 
         //Act

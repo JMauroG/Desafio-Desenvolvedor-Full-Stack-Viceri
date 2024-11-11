@@ -26,7 +26,7 @@ public class DeleteHeroiCommandHandlerTests
     {
         //Arrange
         int heroiId = 1;
-        _mockHeroiRepository.Setup(rep => rep.GetHeroiByIdAsync(heroiId))!.ReturnsAsync((Heroi)null);
+        _mockHeroiRepository.Setup(rep => rep.GetHeroiByIdAsync(heroiId, CancellationToken))!.ReturnsAsync((Heroi)null);
         
         DeleteHeroiCommand command = new(heroiId);
         
@@ -45,7 +45,7 @@ public class DeleteHeroiCommandHandlerTests
         //Arrange
         int heroiId = 1;
         Heroi heroi = new("heroiTest", "heroiTest", DateTime.Now, 2, 30, [], heroiId );
-        _mockHeroiRepository.Setup(rep => rep.GetHeroiByIdAsync(heroiId)).ReturnsAsync(heroi);
+        _mockHeroiRepository.Setup(rep => rep.GetHeroiByIdAsync(heroiId, CancellationToken)).ReturnsAsync(heroi);
         DeleteHeroiCommand command = new(heroiId);
         
         //Act
