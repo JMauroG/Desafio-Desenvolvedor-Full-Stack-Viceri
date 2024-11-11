@@ -1,8 +1,8 @@
 # Desafio-Desenvolvedor-Full-Stack-Viceri
 
 ## Sobre
-- Me baseando no template do Milan Jovanovic, utilizei a Arquitetura limpa em conjunto com CQRS e DDD. Mesmo tendo o conhecimeento que são padrões que podiam gerar complexidade a uma ideia simples eu optei por segui los pelos seguintes motivos:
-  - Busquei facilidade na manutenção da aplicação e na criação dos testes unitários , por isso optei pela arquitetura limpa
+- Me baseando no template do Milan Jovanovic, utilizei a Arquitetura limpa em conjunto com CQRS e DDD. Mesmo tendo o conhecimeento que são padrões que podiam gerar uma carga de complexidade a uma ideia simples, optei por segui los tendo em mente que:
+  - Buscava facilidade na manutenção da aplicação e na criação dos testes unitários , sedno assim utilizei a arquitetura limpa
   - Inicialmente planejava utilizar uma base de dados para leitura e outra para escrita, e isso "justificaria" a ideia do CQRS.
 - Para a base de dados preferi por utilizar o EF junto a SQL Server tendo em vista a simplicidade de configurar um container no docker.
 - A interface gráfica foi desenvolvida em Angular, utilizando Angular Material.
