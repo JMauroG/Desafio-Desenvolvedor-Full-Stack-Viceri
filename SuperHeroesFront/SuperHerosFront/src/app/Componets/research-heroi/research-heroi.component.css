@@ -1,7 +1,14 @@
-.form-area{
+.corpo{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
 }
+
+.field{
+    width: 212px;
+}
+
 
 .actions{
     display: flex;

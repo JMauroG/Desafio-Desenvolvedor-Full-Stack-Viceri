@@ -1,0 +1,15 @@
+.icone-update{
+    cursor: pointer;
+}
+
+.table-area{
+    overflow-x: auto;
+}
+
+table{
+    background-color: #9f9f9f;
+}
+
+.paginator{
+    background-color: #9f9f9f;
+}

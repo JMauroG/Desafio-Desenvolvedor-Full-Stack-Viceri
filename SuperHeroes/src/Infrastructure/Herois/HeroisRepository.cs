@@ -29,6 +29,7 @@ public class HeroisRepository(ApplicationDbContext context) : IHeroisRepository
     {
         return await context.Herois
             .AsNoTrackingWithIdentityResolution()
+            .Include(h => h.Superpoderes)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 

@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ResearchHeroiComponent } from './Componets/research-heroi/research-heroi.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
     HeroisListComponent,
     RegisterHeroiComponent,
     UptadeHeroiComponent,
-    DeleteHeroiComponent
+    DeleteHeroiComponent,
+    ResearchHeroiComponent
   ],
   imports: [
     BrowserModule,

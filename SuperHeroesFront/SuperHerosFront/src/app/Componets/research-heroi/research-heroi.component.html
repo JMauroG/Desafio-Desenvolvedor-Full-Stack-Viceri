@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Buscar Herói</h2>
+<mat-dialog-content>
+    <div *ngIf="!heroiResearch" class="corpo">
+        <mat-form-field class="field">
+            <mat-label>Id do heroi que deseja encontrar</mat-label>
+            <input matInput type="number" [(ngModel)]="heroiId">
+        </mat-form-field>
+        <p *ngIf="!success">Herói não encontrado</p>
+    </div>
+
+    <div *ngIf="heroiResearch" class="corpo">
+        <mat-form-field class="field">
+            <mat-label>Id</mat-label>
+            <input matInput type="number" [(ngModel)]="heroi.id" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" [(ngModel)]="heroi.nome" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Nome Heroi</mat-label>
+            <input matInput type="text" [(ngModel)]="heroi.nomeHeroi" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="heroi.dataNascimento" [disabled]="true">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Altura</mat-label>
+            <input matInput type="number" [(ngModel)]="heroi.altura" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Peso</mat-label>
+            <input matInput type="number" [(ngModel)]="heroi.peso" [disabled]="true">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Poder">
+                <th mat-header-cell *matHeaderCellDef> Poder </th>
+                <td mat-cell *matCellDef="let poder"> {{poder.poder}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Descricao">
+                <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                <td mat-cell *matCellDef="let poder"> {{poder.descricao}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>
+        </table>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+    <button *ngIf="!heroiResearch" (click)="Research()">Pesquisar</button>
+    <button (click)="Close()">Voltar</button>
+</mat-dialog-actions>
